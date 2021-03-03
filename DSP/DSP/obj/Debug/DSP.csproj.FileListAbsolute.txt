@@ -1,0 +1,10 @@
+C:\Users\Lenovo\Desktop\DSP\DSP\bin\Debug\DSP.exe.config
+C:\Users\Lenovo\Desktop\DSP\DSP\bin\Debug\DSP.exe
+C:\Users\Lenovo\Desktop\DSP\DSP\bin\Debug\DSP.pdb
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.DSP.resources
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.Properties.Resources.resources
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.csproj.GenerateResource.cache
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.exe
+C:\Users\Lenovo\Desktop\DSP\DSP\obj\Debug\DSP.pdb
