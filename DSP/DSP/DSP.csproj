@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Channels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Channels.Designer.cs">
+      <DependentUpon>Channels.cs</DependentUpon>
+    </Compile>
     <Compile Include="DSP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Channels.resx">
+      <DependentUpon>Channels.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DSP.resx">
       <DependentUpon>DSP.cs</DependentUpon>
     </EmbeddedResource>
