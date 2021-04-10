@@ -37,6 +37,7 @@
             this.analysMenuTool = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsMenuTool = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutSignalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuDSP.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             this.aboutMenuTool});
             this.mainMenuDSP.Location = new System.Drawing.Point(0, 0);
             this.mainMenuDSP.Name = "mainMenuDSP";
-            this.mainMenuDSP.Size = new System.Drawing.Size(800, 30);
+            this.mainMenuDSP.Size = new System.Drawing.Size(800, 28);
             this.mainMenuDSP.TabIndex = 0;
             this.mainMenuDSP.Text = "menuStrip1";
             // 
@@ -61,7 +62,7 @@
             this.fileMenuTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileTool});
             this.fileMenuTool.Name = "fileMenuTool";
-            this.fileMenuTool.Size = new System.Drawing.Size(59, 26);
+            this.fileMenuTool.Size = new System.Drawing.Size(59, 24);
             this.fileMenuTool.Text = "Файл";
             // 
             // openFileTool
@@ -74,33 +75,42 @@
             // modelMenuTool
             // 
             this.modelMenuTool.Name = "modelMenuTool";
-            this.modelMenuTool.Size = new System.Drawing.Size(138, 26);
+            this.modelMenuTool.Size = new System.Drawing.Size(138, 24);
             this.modelMenuTool.Text = "Моделирование";
             // 
             // filterMenuTool
             // 
             this.filterMenuTool.Name = "filterMenuTool";
-            this.filterMenuTool.Size = new System.Drawing.Size(108, 26);
+            this.filterMenuTool.Size = new System.Drawing.Size(108, 24);
             this.filterMenuTool.Text = "Фильтрация";
             // 
             // analysMenuTool
             // 
+            this.analysMenuTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutSignalToolStripMenuItem});
             this.analysMenuTool.Name = "analysMenuTool";
-            this.analysMenuTool.Size = new System.Drawing.Size(74, 26);
+            this.analysMenuTool.Size = new System.Drawing.Size(74, 24);
             this.analysMenuTool.Text = "Анализ";
             // 
             // settingsMenuTool
             // 
             this.settingsMenuTool.Name = "settingsMenuTool";
-            this.settingsMenuTool.Size = new System.Drawing.Size(98, 26);
+            this.settingsMenuTool.Size = new System.Drawing.Size(98, 24);
             this.settingsMenuTool.Text = "Настройки";
             // 
             // aboutMenuTool
             // 
             this.aboutMenuTool.Name = "aboutMenuTool";
-            this.aboutMenuTool.Size = new System.Drawing.Size(81, 26);
+            this.aboutMenuTool.Size = new System.Drawing.Size(81, 24);
             this.aboutMenuTool.Text = "Справка";
             this.aboutMenuTool.Click += new System.EventHandler(this.aboutMenuTool_Click);
+            // 
+            // aboutSignalToolStripMenuItem
+            // 
+            this.aboutSignalToolStripMenuItem.Name = "aboutSignalToolStripMenuItem";
+            this.aboutSignalToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            this.aboutSignalToolStripMenuItem.Text = "Информация о сигнале";
+            this.aboutSignalToolStripMenuItem.Click += new System.EventHandler(this.aboutSignalToolStripMenuItem_Click);
             // 
             // DSP
             // 
@@ -134,6 +144,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsMenuTool;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuTool;
         private System.Windows.Forms.ToolStripMenuItem openFileTool;
+        private System.Windows.Forms.ToolStripMenuItem aboutSignalToolStripMenuItem;
     }
 }
 
