@@ -38,10 +38,10 @@
             this.summaryLabel = new System.Windows.Forms.Label();
             this.infoLabel = new System.Windows.Forms.Label();
             this.infoGridView = new System.Windows.Forms.DataGridView();
-            this.activeLabel = new System.Windows.Forms.Label();
             this.countColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sourceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.activeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.infoGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,17 +152,6 @@
             this.infoGridView.Size = new System.Drawing.Size(726, 189);
             this.infoGridView.TabIndex = 8;
             // 
-            // activeLabel
-            // 
-            this.activeLabel.AutoSize = true;
-            this.activeLabel.Font = new System.Drawing.Font("Verdana", 10F);
-            this.activeLabel.Location = new System.Drawing.Point(11, 376);
-            this.activeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.activeLabel.Name = "activeLabel";
-            this.activeLabel.Size = new System.Drawing.Size(674, 20);
-            this.activeLabel.TabIndex = 9;
-            this.activeLabel.Text = "Активный фрагмент: [начальный отсчет, конечный отсчет], всего отсчетов";
-            // 
             // countColumn
             // 
             this.countColumn.HeaderText = "N";
@@ -183,6 +172,17 @@
             this.sourceColumn.MinimumWidth = 6;
             this.sourceColumn.Name = "sourceColumn";
             this.sourceColumn.Width = 338;
+            // 
+            // activeLabel
+            // 
+            this.activeLabel.AutoSize = true;
+            this.activeLabel.Font = new System.Drawing.Font("Verdana", 10F);
+            this.activeLabel.Location = new System.Drawing.Point(11, 376);
+            this.activeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.activeLabel.Name = "activeLabel";
+            this.activeLabel.Size = new System.Drawing.Size(674, 20);
+            this.activeLabel.TabIndex = 9;
+            this.activeLabel.Text = "Активный фрагмент: [начальный отсчет, конечный отсчет], всего отсчетов";
             // 
             // Info
             // 
@@ -206,6 +206,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Info";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Информация о сигнале";
             this.Load += new System.EventHandler(this.Info_Load);
             ((System.ComponentModel.ISupportInitialize)(this.infoGridView)).EndInit();

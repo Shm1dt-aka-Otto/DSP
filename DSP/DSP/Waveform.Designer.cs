@@ -1,6 +1,6 @@
 ﻿namespace DSP
 {
-    partial class Channels
+    partial class Waveform
     {
         /// <summary>
         /// Required designer variable.
@@ -28,24 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Channels));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Waveform));
             this.SuspendLayout();
             // 
-            // Channels
+            // Waveform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(205, 437);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Font = new System.Drawing.Font("Verdana", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Channels";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Каналы";
-            this.Load += new System.EventHandler(this.Channels_Load);
+            this.Name = "Waveform";
+            this.Text = "Осцилограмма";
+            this.Load += new System.EventHandler(this.Waveform_Load);
             this.ResumeLayout(false);
 
         }

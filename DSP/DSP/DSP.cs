@@ -19,6 +19,8 @@ namespace DSP
         string[] nameOfChannels, miliSeconds, fileSource;
         string fileName = "", fileShortName = "";
         double rateDiscret = 0, sampleRate = 0;
+        Channels channels;
+        Info info;
 
         public DSP()
         {
@@ -46,14 +48,23 @@ namespace DSP
             if (isChannalsOpen == true && isInfoOpen == false)
             {
                 isInfoOpen = true;
-                Info info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
+                info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
                 timeRecord, miliSeconds, nameOfChannels, fileShortName, fileSource);
                 info.Show();
                 info.FormClosed += (obj, args) => isInfoOpen = false;
             }
-            else
+            else if (isChannalsOpen == false && isInfoOpen == false)
             {
                 return;
+            }
+            else
+            {
+                info.Close();
+                isInfoOpen = true;
+                info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
+                timeRecord, miliSeconds, nameOfChannels, fileShortName, fileSource);
+                info.Show();
+                info.FormClosed += (obj, args) => isInfoOpen = false;
             }
         }
 
@@ -86,14 +97,62 @@ namespace DSP
                 for (int i = 0; i < numberOfChannels; i++)
                     fileSource[i] = "Файл: " + fileShortName;
                 isChannalsOpen = true;
-                Channels channels = new Channels(numberOfChannels, numberOfCount, rateDiscret, sampleRate, fileDataSplit,
+                channels = new Channels(numberOfChannels, numberOfCount, rateDiscret, sampleRate, fileDataSplit,
                     nameOfChannels);
+                if (isInfoOpen == false) { }
+                else
+                {
+                    info.Close();
+                    isInfoOpen = true;
+                    info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
+                    timeRecord, miliSeconds, nameOfChannels, fileShortName, fileSource);
+                    info.Show();
+                    info.FormClosed += (obj, args) => isInfoOpen = false;
+                }
                 channels.Show();
                 channels.FormClosed += (obj, args) => isChannalsOpen = false;
             }
             else
             {
-                return;
+                numberOfChannels = Convert.ToInt32(fileDataSplit[1]);
+                numberOfCount = Convert.ToInt32(fileDataSplit[3]);
+                sampleRate = Convert.ToDouble(fileDataSplit[5].Replace('.', ','));
+                rateDiscret = 1 / sampleRate;
+                string[] tempDate = fileDataSplit[7].Split('-');
+                dateRecord = new DateTime(Convert.ToInt32(tempDate[2]), Convert.ToInt32(tempDate[1]),
+                    Convert.ToInt32(tempDate[0]));
+                string[] tempTime = fileDataSplit[9].Split(':');
+                miliSeconds = tempTime[2].Split('.');
+                if (miliSeconds.Length < 2)
+                {
+                    string[] add = new string[] { "0", "000" };
+                    miliSeconds = add;
+                }
+                timeRecord = new DateTime(2021, 9, 4, Convert.ToInt32(tempTime[0]), Convert.ToInt32(tempTime[1]),
+                    Convert.ToInt32(miliSeconds[0]));
+                nameOfChannels = fileDataSplit[11].Split(';');
+                fileSource = fileDataSplit[11].Split(';');
+                string[] subtract = fileName.Split('\\');
+                int length = subtract.Length;
+                fileShortName = subtract[length - 1];
+                for (int i = 0; i < numberOfChannels; i++)
+                    fileSource[i] = "Файл: " + fileShortName;
+                channels.Close();
+                isChannalsOpen = true;
+                channels = new Channels(numberOfChannels, numberOfCount, rateDiscret, sampleRate, fileDataSplit,
+                    nameOfChannels);
+                if (isInfoOpen == false) { }
+                else
+                {
+                    info.Close();
+                    isInfoOpen = true;
+                    info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
+                    timeRecord, miliSeconds, nameOfChannels, fileShortName, fileSource);
+                    info.Show();
+                    info.FormClosed += (obj, args) => isInfoOpen = false;
+                }
+                channels.Show();
+                channels.FormClosed += (obj, args) => isChannalsOpen = false;
             }
         }
 
