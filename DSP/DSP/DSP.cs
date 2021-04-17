@@ -13,7 +13,7 @@ namespace DSP
 {
     public partial class DSP : Form
     {
-        bool isChannalsOpen = false, isInfoOpen = false;
+        bool isChannelsOpen = false, isInfoOpen = false, isModulatingOpen = false;
         int numberOfChannels = 0, numberOfCount = 0;
         DateTime dateRecord, timeRecord;
         string[] nameOfChannels, miliSeconds, fileSource;
@@ -45,7 +45,7 @@ namespace DSP
 
         private void aboutSignalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isChannalsOpen == true && isInfoOpen == false)
+            if (isChannelsOpen == true && isInfoOpen == false)
             {
                 isInfoOpen = true;
                 info = new Info(numberOfChannels, numberOfCount, rateDiscret, sampleRate, dateRecord,
@@ -53,7 +53,7 @@ namespace DSP
                 info.Show();
                 info.FormClosed += (obj, args) => isInfoOpen = false;
             }
-            else if (isChannalsOpen == false && isInfoOpen == false)
+            else if (isChannelsOpen == false && isInfoOpen == false)
             {
                 return;
             }
@@ -71,7 +71,7 @@ namespace DSP
         private void TxtFile(string file)
         {
             string[] fileDataSplit = file.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries); 
-            if (isChannalsOpen == false)
+            if (isChannelsOpen == false)
             {
                 numberOfChannels = Convert.ToInt32(fileDataSplit[1]);
                 numberOfCount = Convert.ToInt32(fileDataSplit[3]);
@@ -96,7 +96,7 @@ namespace DSP
                 fileShortName = subtract[length - 1];
                 for (int i = 0; i < numberOfChannels; i++)
                     fileSource[i] = "Файл: " + fileShortName;
-                isChannalsOpen = true;
+                isChannelsOpen = true;
                 channels = new Channels(numberOfChannels, numberOfCount, rateDiscret, sampleRate, fileDataSplit,
                     nameOfChannels);
                 if (isInfoOpen == false) { }
@@ -110,7 +110,7 @@ namespace DSP
                     info.FormClosed += (obj, args) => isInfoOpen = false;
                 }
                 channels.Show();
-                channels.FormClosed += (obj, args) => isChannalsOpen = false;
+                channels.FormClosed += (obj, args) => isChannelsOpen = false;
             }
             else
             {
@@ -138,7 +138,7 @@ namespace DSP
                 for (int i = 0; i < numberOfChannels; i++)
                     fileSource[i] = "Файл: " + fileShortName;
                 channels.Close();
-                isChannalsOpen = true;
+                isChannelsOpen = true;
                 channels = new Channels(numberOfChannels, numberOfCount, rateDiscret, sampleRate, fileDataSplit,
                     nameOfChannels);
                 if (isInfoOpen == false) { }
@@ -152,7 +152,7 @@ namespace DSP
                     info.FormClosed += (obj, args) => isInfoOpen = false;
                 }
                 channels.Show();
-                channels.FormClosed += (obj, args) => isChannalsOpen = false;
+                channels.FormClosed += (obj, args) => isChannelsOpen = false;
             }
         }
 
@@ -182,6 +182,14 @@ namespace DSP
         private void DSP_Load(object sender, EventArgs e)
         {
             IsMdiContainer = true;
+        }
+
+        private void modulatingButton_Click(object sender, EventArgs e)
+        {
+            if (isModulatingOpen == false)
+            {
+
+            }
         }
     }
 }
