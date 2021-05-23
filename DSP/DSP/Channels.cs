@@ -13,11 +13,13 @@ namespace DSP
 {
     public partial class Channels : Form
     {
-        FlowLayoutPanel fPanel;
-        int numberChannels, numberCount;
+        int numberChannels, numberCount, currentNumber = 0, number = 0;
         double discreteRate, rateSignal;
         string[] channelsNames, fileData;
         bool isWaveFormOpen = false;
+        PointPairList[] stack;
+        Waveform wave;
+        ZedGraphControl zedGraph = new ZedGraphControl();
 
         public Channels(int numberOfChannels, int numberOfCount,
                 double rateDiscret, double sampleRate, string[] fileDateSplit, 
@@ -27,20 +29,15 @@ namespace DSP
             numberChannels = numberOfChannels;
             numberCount = numberOfCount;
             fileData = fileDateSplit;
-            fPanel = new FlowLayoutPanel();
-            fPanel.Dock = DockStyle.Fill;
-            fPanel.AutoScroll = true;
-            this.Controls.Add(fPanel);
             this.Load += Onload;
-
             InitializeComponent();
-
             numberChannels = numberOfChannels;
             numberCount = numberOfCount;
             rateSignal = sampleRate;
             discreteRate = rateDiscret;
             channelsNames = nameOfChannels;
             fileData = fileDateSplit;
+            stack = new PointPairList[numberOfChannels];
         }
 
         void zedGraph_ContextMenuBuilder(ZedGraphControl sender,
@@ -48,6 +45,7 @@ namespace DSP
         Point mousePt,
         ZedGraphControl.ContextMenuObjectState objState)
         {
+            zedGraph = sender;
             for (int i = 0; i < 8; i++)
             {
                 menuStrip.Items.RemoveAt(0);
@@ -65,6 +63,7 @@ namespace DSP
             menuStrip.Items.Add(crossSpectrum);
             ToolStripItem hide = new ToolStripMenuItem("Скрыть");
             menuStrip.Items.Add(hide);
+            hide.Click += new EventHandler(hideClicked);
             ToolStripItem hideAll = new ToolStripMenuItem("Скрыть все, кроме этого");
             menuStrip.Items.Add(hideAll);
             ToolStripItem showAll = new ToolStripMenuItem("Показать все");
@@ -75,34 +74,62 @@ namespace DSP
 
         private void waveFormClicked(object sender, EventArgs e)
         {
-            if (isWaveFormOpen == false)
-            {
-                isWaveFormOpen = true;
-                Waveform wave = new Waveform();
-                wave.Show();
-                wave.FormClosed += (obj, args) => isWaveFormOpen = false;
-            }
-            else
+            if (number == numberChannels)
             {
                 return;
             }
+            if (isWaveFormOpen == false)
+            {
+                isWaveFormOpen = true;
+                wave = new Waveform(stack, channelsNames, numberChannels, number, fileData,
+                    discreteRate, numberCount);
+                number = number + 1;
+                wave.Show();
+                wave.FormClosed += (obj, args) =>
+                {
+                    isWaveFormOpen = false;
+                    number = 0;
+                };
+            }
+            else
+            {
+                wave.Close();
+                wave = new Waveform(stack, channelsNames, numberChannels, number, fileData,
+                    discreteRate, numberCount);
+                number = number + 1;
+                wave.Show();
+                wave.FormClosed += (obj, args) =>
+                {
+                    isWaveFormOpen = true;
+                    number = 0;
+                };
+            }
         }
 
+        private void hideClicked(object sender, EventArgs e)
+        {
+            zedGraph.Visible = false;
+        }
         private void Onload(object sender, EventArgs e)
         {
-            fPanel.Controls.Clear();
-
+            this.Controls.Clear();
             for (var i = 0; i < numberChannels; i++)
             {
                 ZedGraphControl graph = new ZedGraphControl();
                 graph.ContextMenuBuilder +=
                     new ZedGraphControl.ContextMenuBuilderEventHandler(zedGraph_ContextMenuBuilder);
+                graph.Size = new Size(221, 127);
+                if (currentNumber == 0)
+                {
+                    graph.Location = new Point(0, 0);
+                }
+                else
+                {
+                    graph.Location = new Point(0, 126 * currentNumber);
+                }
+                graph.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                currentNumber = currentNumber + 1;
                 GraphPane pane = graph.GraphPane;
-                pane.XAxis.Title.Text = "";
-                pane.YAxis.Title.Text = "";
-                pane.Title.Text = channelsNames[i];
-                pane.Title.FontSpec.IsBold = false;
-                pane.Title.FontSpec.Size = 34;
                 PointPairList list = new PointPairList();
                 double time = discreteRate;
                 if (numberChannels * numberCount > 100000)
@@ -121,20 +148,35 @@ namespace DSP
                     {
                         string[] fileSplit = fileData[j].Split(' ');
                         string coordinate = fileSplit[i].Replace('.', ',');
-                        list.Add(j - 12, Convert.ToDouble(coordinate));
+                        list.Add(time, Convert.ToDouble(coordinate));
+                        time += discreteRate;
                     }
                 }
                 LineItem myCurve = pane.AddCurve("", list, Color.Blue, SymbolType.None);
+                stack[i] = list;
+                pane.IsBoundedRanges = true;
+                pane.YAxis.Scale.MinAuto = true;
+                pane.YAxis.Scale.MaxAuto = true;
+                pane.XAxis.Scale.MinAuto = true;
+                pane.XAxis.Scale.MaxAuto = true;
                 pane.YAxis.MajorGrid.IsZeroLine = false;
+                pane.XAxis.Title.Text = "";
+                pane.YAxis.Title.Text = "";
+                pane.XAxis.Title.IsVisible = false;
+                pane.YAxis.Title.IsVisible = false;
+                pane.Title.Text = channelsNames[i];
+                pane.Title.FontSpec.IsBold = false;
+                pane.Title.FontSpec.Size = 34;
                 graph.AxisChange();
                 graph.Invalidate();
-                fPanel.Controls.Add(graph);
+                this.Controls.Add(graph);
             }
         }
 
         private void Channels_Load(object sender, EventArgs e)
         {
             MdiParent = Form.ActiveForm;
+            this.Location = new Point(1274, 0);
 
         }
     }
